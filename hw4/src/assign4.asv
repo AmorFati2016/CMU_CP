@@ -24,14 +24,30 @@ w = W_tent(1:256,0.01,0.99);
 Data_linear = linearRenderImage(data,FileNum,w);
 
 %% Merge exposure stack into HDR image
+
+% using linear merging equa.(5)
 Num = 1:1:FileNum
 Num = Num -1;
 sp = 2.^Num/2048;
-% using linear merging equa.(5)
-LinearMerge(data,Data_linear,sp,w,FileNum);
+for i=1:FileNum
+    up =  w(data(:,:,1,i))*Data_linear(:,:,1,i)/sp(i);
+    down = w(data(:,:,1,i));
+end
+hdr = up / down;
+
+
+
 
 % using logarithmic merging equa. (6)
-LogarithmicMerging(data,Data_linear,sp,w,FileNum);
 
-
-
+Num = 1:1:FileNum
+Num = Num -1;
+sp = 2.^Num/2048;
+for d=1:3
+    for d=1:FileNum
+        up =  w(data(:,:,d,i))*(log(Data_linear(:,:,d,i))-log(sp(i)));
+        down = w(data(:,:,d,i));
+        hdr(:,:,d) = up / down;
+    end
+end
+hdr = up / down;
