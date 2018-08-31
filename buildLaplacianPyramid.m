@@ -3,7 +3,7 @@ function [ pyramid ] = buildLaplacianPyramid( frame, pyrH )
 %   Detailed explanation goes here
 % build pyramid
 pyramid = cell(pyrH,1);
-for i=1:pyrH
+for i=1:pyrH-1
     % gauss filter
     frame_gauss = imgaussfilt(frame,3);
     diff = frame - frame_gauss;
@@ -12,6 +12,6 @@ for i=1:pyrH
     frame = frame_gauss_down;
     pyramid{i} = diff;
 end
-
+pyramid{pyrH} = frame_gauss_down;
 end
 
