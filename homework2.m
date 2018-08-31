@@ -10,7 +10,9 @@
 
 firstFrame = imread('first.png');
 
+frame_num = 10;
 videoFramesDouble = im2double(firstFrame);
+
 %convert each of the frames to the YIQ color space
 videoFramsYIQ = rgb2ntsc(videoFramesDouble);
 
@@ -21,11 +23,39 @@ filterSize = 5;
 % compute the height of pyramid
 pyrH = computePyrHeight(width,height,filterSize);
 
-% build pyramid
+% build lapacian pyramid
+lapPyr = cell(1,3,frame_num);
+% build pyramid for r g b channels
 
-pyr = cell(pyrH,3,100);
+temp = buildLaplacianPyramid(videoFramsYIQ(:,:,1),pyrH);
+
+% for i= 1: frame_num
+%     lapPyr{:,1,i} = buildLaplacianPyramid(videoFramsYIQ(:,:,1),pyrH);
+%     lapPyr{:,2,i} = buildLaplacianPyramid(videoFramsYIQ(:,:,2),pyrH);
+%     lapPyr{:,3,i} = buildLaplacianPyramid(videoFramsYIQ(:,:,3),pyrH);
+% end
+% 
+% % bandfilter
+% for i=1:frame_num
+%     for j=1:pyrH
+%         lapPyr{1,1,i}{j} = bandFilter(lapPyr{1,1,i}{j},50);
+%         lapPyr{1,2,i}{j} = bandFilter(lapPyr{1,2,i}{j},50);
+%         lapPyr{1,3,i}{j} = bandFilter(lapPyr{1,3,i}{j},50);
+%     end
+% end
 
 
+%% amplify
+
+
+%% reconstruction
+out = temp{pyrH};
+for i=pyrH-1:-1:1
+    out  = temp{i} + imresize(out,[size(temp{i},1),size(temp{i},2)],'bilinear');
+end
+
+imshow(out);
+    
 
 
 
