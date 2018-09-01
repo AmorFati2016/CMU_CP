@@ -11,7 +11,7 @@ filterSize = 5;
 video_laplacianPyramid = buildVideoLaplacianPyramid(video_Frames_YIQ,videoInfo,filterSize);
 
 % 
-video_band_filtered  = lowPassFilter(video_laplacianPyramid,videoInfo);
+lowPassFilter(video_laplacianPyramid,videoInfo);
 
 
 
