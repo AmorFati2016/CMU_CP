@@ -1,4 +1,4 @@
-function [outputArg1,outputArg2] = initials(path)
+function [output] = initials(path)
 %UNTITLED 此处显示有关此函数的摘要
 %   此处显示详细说明
 
@@ -17,10 +17,9 @@ videoInfo.width = width;
 videoInfo.dims = dims;
 videoInfo.Frames = Frames;
 % convert them to double-precision in the range [0; 1]
-videoFrames_double = im2double(videoFrames);
+videoFrames_double = im2double(videoFrames(:,:,:,1:10));
 
 
-outputArg1 = videoInfo;
-outputArg2 = videoFrames_double;
+output = videoFrames_double;
 end
 

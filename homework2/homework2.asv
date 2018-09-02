@@ -1,21 +1,23 @@
 
 
 path = 'C:\Users\Amor\Desktop\assgn2\data\face.mp4';
-[videoInfo,video_frames_double] = initials(path);
+video_frames_double = initials(path);
 
 %convert each of the frames to the YIQ color space
-video_Frames_YIQ = convertYIQ(video_frames_double, videoInfo);
+video_Frames_YIQ = convertYIQ(video_frames_double);
 
 % create the laplace pyramid
 filterSize = 5;
-video_laplacianPyramid = buildVideoLaplacianPyramid(video_Frames_YIQ,videoInfo,filterSize);
+[video_laplacianPyramid ,pyrSize] = buildVideoLaplacianPyramid(video_Frames_YIQ,videoInfo,filterSize);
 
 % 
-lowPassFilter(video_laplacianPyramid,videoInfo);
+video_band_filtered  = lowPassFilter(video_laplacianPyramid,videoInfo);
 
 
 
 %% amplify
+
+amplify(video_band_filtered,pyrSize,lamda
 
 
 %% reconstruction

@@ -1,4 +1,4 @@
-function [outputArg1] = lowPassFilter(lapPyr,wl,wh)
+function [outputArg1] = lowPassFilter(lapPyr,videoInfo)
 %UNTITLED5 此处显示有关此函数的摘要
 %   此处显示详细说明
 
@@ -11,7 +11,7 @@ sampleRatio = 30;
 lut = 1:num;
 lut = (lut' -1)/num*sampleRatio;
 
-lut = repmat(lut,[1,size(lpyr,2),size(lpyr,3)]);
+lut = repmat(lut,[1,size(lpyr,2),size(l);
 
 lut = lut > wl & lut <wh;
 
@@ -21,7 +21,7 @@ lpyr_ifft = ifft(lpyr_fft,[],1);
 
 lpyr = real(lapPyr);
 
-lapPyr = repmat(lpyr,1);
+lapPyr = remap(lpyr,1);
 
 outputArg1 = lapPyr;
 end
